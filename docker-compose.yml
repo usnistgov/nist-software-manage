@@ -5,7 +5,7 @@ services:
       context: ../nist-software-portal
     image: nist-soft-portal
     ports:
-      - "0.0.0.0:3000:4000"
+      - "0.0.0.0:80:4000"
     depends_on:
       - "softbot"
   softbot:
