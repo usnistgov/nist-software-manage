@@ -1,0 +1,18 @@
+version: "3"
+services:
+  softportal:
+    build:
+      context: ../nist-software-portal
+    image: nist-soft-portal
+    ports:
+      - "127.0.0.1:3000:4000"
+    depends_on:
+      - "softbot"
+  softbot:
+    build:
+      context: ../nist-software-bot
+    environment:
+        - GITHUB_API_TOKEN=d6b76adcdca890ebe3cdfef50b24920d02cf5b0d
+    image: nist-soft-bot
+    volumes:
+      - ../nist-software-bot/data:/nist-software-bot/github-data
