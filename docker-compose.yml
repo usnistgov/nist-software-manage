@@ -15,4 +15,4 @@ services:
         - GITHUB_API_TOKEN=your_token
     image: nist-soft-bot
     volumes:
-      - ../nist-software-bot/data:/nist-software-bot/github-data
+      - /home/ubuntu/nist-software-bot/data:/nist-software-bot/github-data
