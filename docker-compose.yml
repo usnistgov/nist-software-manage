@@ -1,11 +1,23 @@
 version: "2"
 services:
+  softnginx:
+    image: nginx
+    volumes:
+      - ../nist-software-manage/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../nist-software-manage/nginx/portal.conf:/etc/nginx/conf.d/portal.conf
+      - ../nist-software-manage/nginx/portal.key:/etc/nginx/cert/portal.key
+      - ../nist-software-manage/nginx/portal.crt:/etc/nginx/cert/portal.crt
+      - ../nist-software-manage/nginx/logs:/var/log/nginx;
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    depends_on:
+      - "softportal"
+    command: /bin/bash -c "exec nginx -g 'daemon off;'"
   softportal:
     build:
       context: ../nist-software-portal
     image: nist-soft-portal
-    ports:
-      - "0.0.0.0:80:4000"
     depends_on:
       - "softbot"
   softbot:
@@ -15,4 +27,4 @@ services:
         - GITHUB_API_TOKEN=your_token
     image: nist-soft-bot
     volumes:
-      - /home/ubuntu/nist-software-bot/data:/nist-software-bot/github-data
+      - ../nist-software-portal/explore/github-data:/nist-software-bot/github-data
